@@ -20,7 +20,7 @@ const Modal = ({ close, isOpen, modalTitle, children }: IProps) => {
       <Transition appear show={isOpen}>
         <Dialog
           as="div"
-          className="relative z-10 focus:outline-none "
+          className="relative z-50 focus:outline-none "
           onClose={close}
           __demoMode
         >
@@ -34,12 +34,12 @@ const Modal = ({ close, isOpen, modalTitle, children }: IProps) => {
                 leaveFrom="opacity-100 transform-[scale(100%)]"
                 leaveTo="opacity-0 transform-[scale(95%)]"
               >
-                <DialogPanel className="w-full max-w-md rounded-xl bg-slate-50 p-6 backdrop-blur-2xl">
+                <DialogPanel className="w-full max-w-md rounded-xl bg-slate-50 p-6 ">
                   <DialogTitle
                     as="h3"
-                    className="text-base/7 font-medium text-slate-800"
+                    className="text-slate-800 text-lg font-semibold uppercase"
                   >
-                    {modalTitle}
+                    {modalTitle}🌀
                   </DialogTitle>
 
                   <div className="mt-4">{children}</div>

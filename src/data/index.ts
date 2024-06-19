@@ -1,4 +1,4 @@
-import type { IProduct } from "../interfaces";
+import type {  IInputs, IProduct } from "../interfaces";
 import {v4 as uuid} from "uuid"
 import {car1, car2, furniture1, furniture2, furniture3, nike, nike2, pc, pcDesktop, tShirt,} from "../assets/images/index"
 
@@ -149,36 +149,33 @@ export const ProductList: IProduct[] = [
   },
 ];
 
-
-
-
-// export const formInputList:IInputList[] = [
-//   {
-//     id: "title",
-//     name:"title",
-//     label:"Product Title",
-//     type:"text",
-//   },
-//   {
-//     id: "description",
-//     name:"description",
-//     label:"Product description",
-//     type:"text",
-//   },
-//   {
-//     id: "image",
-//     name:"imageURL",
-//     label:"Product image url",
-//     type:"text",
-//   },
-//   {
-//     id: "price",
-//     name:"price",
-//     label:"Product price",
-//     type:"text",
-//   },
+export const formInputList:IInputs[] = [
+  {
+    id: "title",
+    name:"title",
+    label:"Product Title",
+    type:"text",
+  },
+  {
+    id: "description",
+    name:"description",
+    label:"Product description",
+    type:"text",
+  },
+  {
+    id: "image",
+    name:"imageURL",
+    label:"Product image url",
+    type:"text",
+  },
+  {
+    id: "price",
+    name:"price",
+    label:"Product price",
+    type:"text",
+  },
   
-// ]
+]
 
 
 // export const colors = [
