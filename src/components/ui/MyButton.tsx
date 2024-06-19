@@ -5,7 +5,12 @@ interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   width?: "w-full" | "w-fit";
 }
 
-const Button = ({ children, className, width = "w-full", ...rest }: IProps) => {
+const MyButton = ({
+  children,
+  className,
+  width = "w-full",
+  ...rest
+}: IProps) => {
   return (
     <button
       {...rest}
@@ -16,4 +21,4 @@ const Button = ({ children, className, width = "w-full", ...rest }: IProps) => {
   );
 };
 
-export default Button;
+export default MyButton;

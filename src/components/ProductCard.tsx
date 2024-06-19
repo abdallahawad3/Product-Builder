@@ -1,4 +1,4 @@
-import Button from "./ui/Button";
+import MyButton from "./ui/MyButton";
 import Image from "./Image";
 import type { IProduct } from "../interfaces";
 import { textSlicer } from "../utils";
@@ -46,10 +46,10 @@ const ProductCard = ({ product }: IProps) => {
       </div>
 
       <div className="flex justify-between items-center gap-2 mt-2">
-        <Button className="bg-blue-600 hover:bg-blue-700" width="w-full">
+        <MyButton className="bg-blue-600 hover:bg-blue-700" width="w-full">
           Edit
-        </Button>
-        <Button className="bg-red-600 hover:bg-red-700">Delete</Button>
+        </MyButton>
+        <MyButton className="bg-red-600 hover:bg-red-700">Delete</MyButton>
       </div>
     </div>
   );
