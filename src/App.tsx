@@ -5,6 +5,9 @@ import Modal from "./components/ui/Modal";
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import MyInput from "./components/ui/MyInput";
 import type { IProduct } from "./interfaces";
+import { inputsValidation } from "./validation/inputValidation";
+import ErrorMessage from "./components/ErrorMessage";
+
 const App = () => {
   const defaultProductObj = {
     title: "",
@@ -20,6 +23,12 @@ const App = () => {
   //** ⚙️⚙️ States ⚙️⚙️
   const [isOpen, setIsOpen] = useState(false);
   const [product, setProduct] = useState<IProduct>(defaultProductObj);
+  const [errorMsg, setErrorMsg] = useState({
+    title: "",
+    description: "",
+    imageURL: "",
+    price: "",
+  });
 
   //** 🚀 Handler 🚀 */
   function open() {
@@ -33,10 +42,20 @@ const App = () => {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setProduct({ ...product, [name]: value });
+    setErrorMsg({ ...errorMsg, [name]: "" });
   };
 
   const onSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const errors = inputsValidation(product);
+
+    const hasErrorMsg =
+      Object.values(errors).some((value) => value === "") &&
+      Object.values(errors).every((value) => value === "");
+    setErrorMsg(errors);
+    if (!hasErrorMsg) {
+      return;
+    }
   };
 
   const onClose = () => {
@@ -67,6 +86,7 @@ const App = () => {
             onChangeHandler(e);
           }}
         />
+        <ErrorMessage msg={errorMsg[input.name]} />
       </div>
     );
   });
