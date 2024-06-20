@@ -39,7 +39,9 @@ const App = () => {
     imageURL: "",
     price: "",
   });
-  const [productToDelete, setProductToDelete] = useState("");
+  const [productToDelete, setProductToDelete] = useState<string | undefined>(
+    ""
+  );
   const [productToEditIdx, setProductToEditIdx] = useState<number>(0);
   const [selectedColor, setSelectedColor] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState(Category[0]);
@@ -101,6 +103,26 @@ const App = () => {
       ...prev,
     ]);
     setProduct(defaultProductObj);
+    toast("Your product Added Successfully ", {
+      duration: 2000,
+      position: "top-center",
+
+      // Styling
+      style: {
+        backgroundColor: "black",
+        color: "#FFF",
+      },
+      className: "",
+
+      // Custom Icon
+      icon: "✅",
+
+      // Aria
+      ariaProps: {
+        role: "status",
+        "aria-live": "polite",
+      },
+    });
     close();
   };
 
@@ -120,6 +142,26 @@ const App = () => {
       colors: selectedColor.concat(productToEdit.colors),
     };
     setProducts(updatedProduct);
+    toast("Your product Edited Successfully ", {
+      duration: 2000,
+      position: "top-center",
+
+      // Styling
+      style: {
+        backgroundColor: "rgb(38 100 236)",
+        color: "#FFF",
+      },
+      className: "",
+
+      // Custom Icon
+      icon: "✒️",
+
+      // Aria
+      ariaProps: {
+        role: "status",
+        "aria-live": "polite",
+      },
+    });
     colsEditModal();
   };
 
@@ -146,17 +188,14 @@ const App = () => {
       position: "top-center",
 
       // Styling
-      style: {},
+      style: {
+        background: "#dc2626",
+        color: "#FFF",
+      },
       className: "",
 
       // Custom Icon
       icon: "🙆",
-
-      // Change colors of success/error/loading icon
-      iconTheme: {
-        primary: "#000",
-        secondary: "#fff",
-      },
 
       // Aria
       ariaProps: {

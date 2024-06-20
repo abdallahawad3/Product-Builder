@@ -8,7 +8,7 @@ interface IProps {
   openDeleteModal: () => void;
   setProductToEdit: (product: IProduct) => void;
   openEditModal: () => void;
-  setProductToDelete: (id: string) => void;
+  setProductToDelete: (id: string | undefined) => void;
   index: number;
   setProductToEditIdx: (idx: number) => void;
 }
@@ -38,7 +38,7 @@ const ProductCard = ({
         {textSlicer(product.title, 20)}
       </h3>
       <p className="my-2 text-gray-900">
-        {textSlicer(product.description, 50)}
+        {textSlicer(product.description, 30)}
       </p>
 
       <div className="flex items-center gap-1 my-2">
