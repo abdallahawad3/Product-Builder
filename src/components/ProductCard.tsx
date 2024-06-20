@@ -5,8 +5,10 @@ import { splitPrice, textSlicer } from "../utils";
 import Circle from "./Circle";
 interface IProps {
   product: IProduct;
+  openDeleteModal: () => void;
   setProductToEdit: (product: IProduct) => void;
   openEditModal: () => void;
+  setProductToDelete: (id: string) => void;
   index: number;
   setProductToEditIdx: (idx: number) => void;
 }
@@ -17,6 +19,8 @@ const ProductCard = ({
   setProductToEditIdx,
   setProductToEdit,
   openEditModal,
+  openDeleteModal,
+  setProductToDelete,
 }: IProps) => {
   const onEdit = () => {
     setProductToEdit(product);
@@ -69,7 +73,15 @@ const ProductCard = ({
         >
           Edit
         </MyButton>
-        <MyButton className="bg-red-600 hover:bg-red-700">Delete</MyButton>
+        <MyButton
+          onClick={() => {
+            openDeleteModal();
+            setProductToDelete(product.id);
+          }}
+          className="bg-red-600 hover:bg-red-700"
+        >
+          Delete
+        </MyButton>
       </div>
     </div>
   );

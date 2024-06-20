@@ -1,4 +1,6 @@
 import { v4 as uuid } from "uuid";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import ProductCard from "./components/ProductCard";
 import { Category, ProductList, colors, formInputList } from "./data";
 import MyButton from "./components/ui/MyButton";
@@ -28,6 +30,7 @@ const App = () => {
   //** ⚙️⚙️ States ⚙️⚙️
   const [isOpen, setIsOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [product, setProduct] = useState<IProduct>(defaultProductObj);
   const [products, setProducts] = useState<IProduct[]>(ProductList);
   const [errorMsg, setErrorMsg] = useState({
@@ -36,6 +39,7 @@ const App = () => {
     imageURL: "",
     price: "",
   });
+  const [productToDelete, setProductToDelete] = useState("");
   const [productToEditIdx, setProductToEditIdx] = useState<number>(0);
   const [selectedColor, setSelectedColor] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState(Category[0]);
@@ -48,6 +52,13 @@ const App = () => {
   }
   function close() {
     setIsOpen(false);
+  }
+  function openDeleteModal() {
+    setIsDeleteOpen(true);
+  }
+
+  function colsDeleteModal() {
+    setIsDeleteOpen(false);
   }
   function openEditModal() {
     setIsEditOpen(true);
@@ -125,9 +136,41 @@ const App = () => {
     colsEditModal();
   };
 
+  const onDeleteConfirm = () => {
+    const newData = [...products];
+    const DataAfterDelete = newData.filter((el) => el.id !== productToDelete);
+    setProducts(DataAfterDelete);
+    colsDeleteModal();
+    toast("Your product Deleted Successfully ", {
+      duration: 2000,
+      position: "top-center",
+
+      // Styling
+      style: {},
+      className: "",
+
+      // Custom Icon
+      icon: "🙆",
+
+      // Change colors of success/error/loading icon
+      iconTheme: {
+        primary: "#000",
+        secondary: "#fff",
+      },
+
+      // Aria
+      ariaProps: {
+        role: "status",
+        "aria-live": "polite",
+      },
+    });
+  };
+
   // ** 🌀🌀 Renders 🌀🌀 //
   const renderProductList = products.map((product, idx) => (
     <ProductCard
+      setProductToDelete={setProductToDelete}
+      openDeleteModal={openDeleteModal}
       index={idx}
       setProductToEditIdx={setProductToEditIdx}
       openEditModal={openEditModal}
@@ -258,12 +301,11 @@ const App = () => {
           </div>
         </form>
       </Modal>
-
       {/* Edit the product ✒️*/}
       <Modal
         close={colsEditModal}
         isOpen={isEditOpen}
-        modalTitle={"Edit the product ✒️"}
+        modalTitle={"Edit the product"}
       >
         <form className="space-y-2" onSubmit={onSubmitEditHandler}>
           {renderEditProduct("title", "Product Title", "title")}
@@ -323,6 +365,34 @@ const App = () => {
           </div>
         </form>
       </Modal>
+      <Modal
+        close={colsDeleteModal}
+        isOpen={isDeleteOpen}
+        modalTitle={"Delete The Product ❌"}
+      >
+        <p className="text-sm text-muted-foreground">
+          This action cannot be undone. This will permanently delete your
+          account and remove your data from our servers.
+        </p>
+
+        <div className="flex mt-3 gap-2 flex-wrap sm:flex-nowrap ">
+          <MyButton
+            onClick={() => {
+              onDeleteConfirm();
+            }}
+            className="bg-red-600 hover:bg-red-700"
+          >
+            Delete
+          </MyButton>
+          <MyButton
+            type="button"
+            onClick={colsDeleteModal}
+            className="bg-gray-400 hover:bg-gray-500"
+          >
+            Cancel
+          </MyButton>
+        </div>
+      </Modal>
       <div className=" my-5 flex flex-wrap justify-between items-center">
         <h1 className="text-2xl mb-2 sm:mb-0 font-bold text-blue-600">
           Build A New Product
@@ -340,6 +410,7 @@ const App = () => {
       <div className="mb-10 gap-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {renderProductList}
       </div>
+      <Toaster />;
     </main>
   );
 };
