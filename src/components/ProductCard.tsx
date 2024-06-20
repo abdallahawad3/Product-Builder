@@ -1,17 +1,27 @@
 import MyButton from "./ui/MyButton";
 import Image from "./Image";
 import type { IProduct } from "../interfaces";
-import { textSlicer } from "../utils";
+import { splitPrice, textSlicer } from "../utils";
 import Circle from "./Circle";
 interface IProps {
   product: IProduct;
   setProductToEdit: (product: IProduct) => void;
   openEditModal: () => void;
+  index: number;
+  setProductToEditIdx: (idx: number) => void;
 }
 
-const ProductCard = ({ product, setProductToEdit, openEditModal }: IProps) => {
+const ProductCard = ({
+  product,
+  index,
+  setProductToEditIdx,
+  setProductToEdit,
+  openEditModal,
+}: IProps) => {
   const onEdit = () => {
     setProductToEdit(product);
+    setProductToEditIdx(index);
+    openEditModal();
   };
   return (
     <div className="border rounded-md p-2">
@@ -34,16 +44,18 @@ const ProductCard = ({ product, setProductToEdit, openEditModal }: IProps) => {
       </div>
 
       <div className="flex justify-between items-center">
-        <span>${product.price}</span>
+        <span className="text-blue-500 font-bold text-lg">
+          ${splitPrice(product.price)}
+        </span>
         <div className="flex justify-between items-center gap-1">
+          <h1 className="uppercase text-sm font-bold">
+            {product.category.name}
+          </h1>
           <Image
             imageUrl={product.category.imageURL}
             altText="car-2"
             className="w-10 h-10 rounded-full "
           />
-          <h1 className="capitalize text-md font-bold">
-            {product.category.name}
-          </h1>
         </div>
       </div>
 
@@ -53,7 +65,6 @@ const ProductCard = ({ product, setProductToEdit, openEditModal }: IProps) => {
           width="w-full"
           onClick={() => {
             onEdit();
-            openEditModal();
           }}
         >
           Edit

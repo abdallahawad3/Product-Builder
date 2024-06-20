@@ -13,3 +13,24 @@ export const textSlicer = (text: string,num:number): string=> {
     return text;
   }
 }
+
+export const splitPrice = (price: string) => {
+  if (price.length > 3) {
+    let newPrice = "";
+    let count = 0;
+
+    for (let i = price.length - 1; i >= 0; i--) {
+      newPrice = price[i] + newPrice;
+      count++;
+
+      if (count === 3 && i !== 0) {
+        newPrice = "," + newPrice;
+        count = 0;
+      }
+    }
+    
+    return newPrice;
+  }
+  
+  return price;
+}

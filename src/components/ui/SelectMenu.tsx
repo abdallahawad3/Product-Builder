@@ -8,7 +8,7 @@ import {
 } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 interface IProps {
-  selected: ICategory;
+  selected: { name: string; imageURL: string };
   setSelected: (category: ICategory) => void;
 }
 import { Category } from "../../data";
@@ -50,7 +50,7 @@ const SelectMenu = ({ selected, setSelected }: IProps) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <ListboxOptions className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <ListboxOptions className=" absolute z-10 block mb-5 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {Category.map((category) => (
                   <ListboxOption
                     key={category.id}

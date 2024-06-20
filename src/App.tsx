@@ -11,6 +11,7 @@ import ErrorMessage from "./components/ErrorMessage";
 import Circle from "./components/Circle";
 import { XCircleIcon } from "@heroicons/react/16/solid";
 import SelectMenu from "./components/ui/SelectMenu";
+import type { TProductNames } from "./types";
 
 const App = () => {
   const defaultProductObj = {
@@ -35,18 +36,16 @@ const App = () => {
     imageURL: "",
     price: "",
   });
+  const [productToEditIdx, setProductToEditIdx] = useState<number>(0);
   const [selectedColor, setSelectedColor] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState(Category[0]);
   const [productToEdit, setProductToEdit] =
     useState<IProduct>(defaultProductObj);
 
-  console.log(productToEdit);
-
   //** 🚀 Handler 🚀 */
   function open() {
     setIsOpen(true);
   }
-
   function close() {
     setIsOpen(false);
   }
@@ -61,6 +60,11 @@ const App = () => {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setProduct({ ...product, [name]: value });
+    setErrorMsg({ ...errorMsg, [name]: "" });
+  };
+  const onChangeEditHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    setProductToEdit({ ...productToEdit, [name]: value });
     setErrorMsg({ ...errorMsg, [name]: "" });
   };
 
@@ -89,6 +93,25 @@ const App = () => {
     close();
   };
 
+  const onSubmitEditHandler = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const errors = inputsValidation(productToEdit);
+    const hasErrorMsg =
+      Object.values(errors).some((value) => value === "") &&
+      Object.values(errors).every((value) => value === "");
+    setErrorMsg(errors);
+    if (!hasErrorMsg) {
+      return;
+    }
+    const updatedProduct = [...products];
+    updatedProduct[productToEditIdx] = {
+      ...productToEdit,
+      colors: selectedColor.concat(productToEdit.colors),
+    };
+    setProducts(updatedProduct);
+    colsEditModal();
+  };
+
   const onClose = () => {
     setProduct(defaultProductObj);
     setSelectedColor([]);
@@ -103,8 +126,10 @@ const App = () => {
   };
 
   // ** 🌀🌀 Renders 🌀🌀 //
-  const renderProductList = products.map((product) => (
+  const renderProductList = products.map((product, idx) => (
     <ProductCard
+      index={idx}
+      setProductToEditIdx={setProductToEditIdx}
       openEditModal={openEditModal}
       setProductToEdit={setProductToEdit}
       key={product.id}
@@ -145,11 +170,41 @@ const App = () => {
             setSelectedColor((prev) => prev.filter((item) => item !== color));
             return;
           }
+          if (productToEdit.colors.includes(color)) {
+            setSelectedColor((prev) => prev.filter((item) => item !== color));
+            return;
+          }
           setSelectedColor((prev) => [...prev, color]);
         }}
       />
     );
   });
+
+  const renderEditProduct = (
+    id: string,
+    label: string,
+    name: TProductNames
+  ) => {
+    return (
+      <div className="w-full flex flex-col">
+        <label
+          className="text-sm/6 font-medium text-gray-700 capitalize"
+          htmlFor={id}
+        >
+          {label}
+        </label>
+        <MyInput
+          name={name}
+          id={id}
+          value={productToEdit[name]}
+          onChange={(e) => {
+            onChangeEditHandler(e);
+          }}
+        />
+        <ErrorMessage msg={errorMsg[name]} />
+      </div>
+    );
+  };
 
   return (
     <main className="container">
@@ -210,17 +265,27 @@ const App = () => {
         isOpen={isEditOpen}
         modalTitle={"Edit the product ✒️"}
       >
-        <form className="space-y-2" onSubmit={onSubmitHandler}>
-          {renderInputs}
+        <form className="space-y-2" onSubmit={onSubmitEditHandler}>
+          {renderEditProduct("title", "Product Title", "title")}
+          {renderEditProduct(
+            "description",
+            "Product Description",
+            "description"
+          )}
+          {renderEditProduct("imageURL", "Product imageURL", "imageURL")}
+          {renderEditProduct("price", "Product Price", "price")}
+
           <SelectMenu
-            selected={selectedCategory}
-            setSelected={setSelectedCategory}
+            selected={productToEdit.category}
+            setSelected={(val) =>
+              setProductToEdit({ ...productToEdit, category: val })
+            }
           />
           <div className="flex items-center justify-start space-x-1 py-[5px]">
             {renderColors}
           </div>
           <div className="flex items-center gap-2 flex-wrap text-white">
-            {selectedColor.map((ele) => {
+            {selectedColor.concat(productToEdit.colors).map((ele) => {
               return (
                 <span
                   key={ele}

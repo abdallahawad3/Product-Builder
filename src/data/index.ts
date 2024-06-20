@@ -8,7 +8,7 @@ export const ProductList: IProduct[] = [
     title:
       "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
     description:
-      "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+      "quia et suscipit\nsuscipit quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
     imageURL:car1,
     price: "5000000",
     colors: ["#FF0032", "#2563eb", "#FF6E31"],
@@ -21,7 +21,7 @@ export const ProductList: IProduct[] = [
     id: uuid(),
     title: "qui est esse",
     description:
-      "est rerum tempore vitae sequi sint nihil reprehenderit dolor beatae ea dolores neque fugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis qui aperiam non debitis possimus qui neque nisi nulla",
+      "est rerum tempore vitae sequi  porro vel nihil molestiae ut reiciendis qui aperiam non debitis possimus qui neque nisi nulla",
     imageURL: car2,
     price: "6598359",
     colors: ["#01204E", "#028391", "#F6DCAC"],
@@ -34,7 +34,7 @@ export const ProductList: IProduct[] = [
     id: uuid(),
     title: "ea molestias quasi exercitationem repellat qui ipsa sit aut",
     description:
-      "deserunt eos nobis asperiores et hic\nest debitis repellat molestiae optio\nnihil ratione ut eos beatae quibusdam distinctio maiores\nearum voluptates et aut adipisci ea maiores voluptas maxime",
+      "deserunt eos nobis asperiores ratione ut eos beatae quibusdam distinctio maiores\nearum voluptates et aut adipisci ea maiores voluptas maxime",
     imageURL: furniture1,
     price: "8548789",
     colors: ["#850F8D ", "#C738BD", "#E49BFF"],
@@ -47,7 +47,7 @@ export const ProductList: IProduct[] = [
     id: uuid(),
     title: "eum et est occaecati",
     description:
-      "ad mollitia et omnis minus architecto odit\nvoluptas doloremque maxime aut non ipsa qui alias veniam\nblanditiis culpa aut quia nihil cumque facere et occaecati\nqui aspernatur quia eaque ut aperiam inventore",
+      "ad mollitia et omnis minus architecto aut quia nihil cumque facere et occaecati\nqui aspernatur quia eaque ut aperiam inventore",
     imageURL: furniture2,
     price: "5454824",
     colors: ["#222831", "#31363F", "#76ABAE"],
@@ -61,7 +61,7 @@ export const ProductList: IProduct[] = [
     id: uuid(),
     title: "nesciunt quas odio",
     description:
-      "corporis rerum ducimus vel eum accusantium\nmaxime aspernatur a porro possimus iste omnis\nest in deleniti asperiores fuga aut\nvoluptas sapiente vel dolore minus voluptatem incidunt ex",
+      "corporis rerum ducimus vel eum  deleniti asperiores fuga aut\nvoluptas sapiente vel dolore minus voluptatem incidunt ex",
     imageURL:
       furniture3,
     price: "425",
@@ -76,7 +76,7 @@ export const ProductList: IProduct[] = [
     id: uuid(),
     title: "dolorem eum magni eos aperiam quia",
     description:
-      "similique fugit est\nillum et dolorum harum et voluptate eaque quidem\nexercitationem quos nam commodi possimus cum odio nihil nulla\ndolorum exercitationem magnam ex et a et distinctio debitis",
+      "similique fugit est\nillum et dolorum harum et odio nihil nulla\ndolorum exercitationem magnam ex et a et distinctio debitis",
     imageURL:
       nike,
     price: "205",
@@ -91,7 +91,7 @@ export const ProductList: IProduct[] = [
     id: uuid(),
     title: "magnam facilis autem",
     description:
-      "error suscipit maxime adipisci consequuntur recusandae\nvoluptas eligendi et est et voluptates\nquia distinctio ab amet quaerat molestiae et vitae\nadipisci impedit sequi nesciunt quis consectetur",
+      "error suscipit maxime adipisci consequuntur distinctio ab amet quaerat molestiae et vitae\nadipisci impedit sequi nesciunt quis consectetur",
     imageURL:
       nike2,
     price: "20589",
@@ -106,7 +106,7 @@ export const ProductList: IProduct[] = [
     id: uuid(),
     title: "dolorem dolore est ipsam",
     description:
-      "commodi non non omnis et voluptas sit\nautem aut nobis magnam et sapiente voluptatem\net laborum repellat qui delectus facilis temporibus\nrerum amet et nemo voluptate expedita adipisci error dolorem",
+      "commodi non non omnis et voluptas sit\nautem aut nobis magnam et amet et nemo voluptate expedita adipisci error dolorem",
     imageURL:
       pc,
     price: "520",
@@ -121,7 +121,7 @@ export const ProductList: IProduct[] = [
     id: uuid(),
     title: "dolorem dolore est ipsam",
     description:
-      "commodi non non omnis et voluptas sit\nautem aut nobis magnam et sapiente voluptatem\net laborum repellat qui delectus facilis temporibus\nrerum amet et nemo voluptate expedita adipisci error dolorem",
+      "commodi non non omnis et voluptas sit\nautem aut nobis magnam et sapiente amet et nemo voluptate expedita adipisci error dolorem",
     imageURL:
       pcDesktop,
     price: "10005",
@@ -136,7 +136,7 @@ export const ProductList: IProduct[] = [
     id: uuid(),
     title: "dolorem dolore est ipsam",
     description:
-      "commodi non non omnis et voluptas sit\nautem aut nobis magnam et sapiente voluptatem\net laborum repellat qui delectus facilis temporibus\nrerum amet et nemo voluptate expedita adipisci error dolorem",
+      "commodi non non omnis et voluptas sit\nautem aut nobis magnam et sapiente amet et nemo voluptate expedita adipisci error dolorem",
     imageURL:
       tShirt,
     price: "10005",
