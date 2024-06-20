@@ -1,5 +1,5 @@
 import ProductCard from "./components/ProductCard";
-import { ProductList, formInputList } from "./data";
+import { ProductList, colors, formInputList } from "./data";
 import MyButton from "./components/ui/MyButton";
 import Modal from "./components/ui/Modal";
 import { useState, type ChangeEvent, type FormEvent } from "react";
@@ -7,6 +7,8 @@ import MyInput from "./components/ui/MyInput";
 import type { IProduct } from "./interfaces";
 import { inputsValidation } from "./validation/inputValidation";
 import ErrorMessage from "./components/ErrorMessage";
+import Circle from "./components/Circle";
+import { XCircleIcon } from "@heroicons/react/16/solid";
 
 const App = () => {
   const defaultProductObj = {
@@ -29,7 +31,7 @@ const App = () => {
     imageURL: "",
     price: "",
   });
-
+  const [selectedColor, setSelectedColor] = useState<string[]>([]);
   //** 🚀 Handler 🚀 */
   function open() {
     setIsOpen(true);
@@ -60,6 +62,7 @@ const App = () => {
 
   const onClose = () => {
     setProduct(defaultProductObj);
+    setSelectedColor([]);
     close();
   };
 
@@ -91,16 +94,62 @@ const App = () => {
     );
   });
 
+  const renderColors = colors.map((color) => {
+    return (
+      <Circle
+        color={color}
+        key={color}
+        onClick={() => {
+          if (selectedColor.includes(color)) {
+            setSelectedColor((prev) => prev.filter((item) => item !== color));
+            return;
+          }
+          setSelectedColor((prev) => [...prev, color]);
+        }}
+      />
+    );
+  });
+
   return (
     <main className="container">
       <Modal close={close} isOpen={isOpen} modalTitle={"Add A New Product"}>
         <form className="space-y-2" onSubmit={onSubmitHandler}>
           {renderInputs}
+
+          <div className="flex items-center justify-start space-x-1 py-[5px]">
+            {renderColors}
+          </div>
+          <div className="flex items-center gap-2 flex-wrap text-white">
+            {selectedColor.map((ele) => {
+              return (
+                <span
+                  key={ele}
+                  className="py-1 px-1 rounded-md flex items-center gap-1"
+                  style={{ background: ele }}
+                >
+                  {ele}
+                  <XCircleIcon
+                    style={{
+                      width: "20px",
+                      background: ele,
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      setSelectedColor((prev) =>
+                        prev.filter((item) => item !== ele)
+                      );
+                    }}
+                  />
+                </span>
+              );
+            })}
+          </div>
           <div className="flex space-x-2">
             <MyButton className="bg-blue-600 hover:bg-blue-700">
               Submit
             </MyButton>
             <MyButton
+              type="button"
               onClick={onClose}
               className="bg-gray-400 hover:bg-gray-500"
             >

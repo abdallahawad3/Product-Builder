@@ -178,21 +178,21 @@ export const formInputList:IInputs[] = [
 ]
 
 
-// export const colors = [
-//   "#A855F7",
-//   "#2563EB",
-//   "#84D2C5",
-//   "#13005A",
-//   "#FF6E31",
-//   "#3C2A21",
-//   "#6C4AB6",
-//   "#CB1C8D",
-//   "#000000",
-//   "#645CBB",
-//   "#1F8A70",
-//   "#820000",
-//   "#FF0032",
-// ] 
+export const colors: string[] = [
+  "#A855F7",
+  "#2563EB",
+  "#84D2C5",
+  "#13005A",
+  "#FF6E31",
+  "#3C2A21",
+  "#6C4AB6",
+  "#CB1C8D",
+  "#000000",
+  "#645CBB",
+  "#1F8A70",
+  "#820000",
+  "#FF0032",
+] 
 
 
 // export const Category:ICategory[] = [

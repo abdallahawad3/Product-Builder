@@ -41,7 +41,6 @@ const Modal = ({ close, isOpen, modalTitle, children }: IProps) => {
                   >
                     {modalTitle}🌀
                   </DialogTitle>
-
                   <div className="mt-4">{children}</div>
                 </DialogPanel>
               </TransitionChild>
