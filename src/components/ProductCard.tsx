@@ -2,11 +2,17 @@ import MyButton from "./ui/MyButton";
 import Image from "./Image";
 import type { IProduct } from "../interfaces";
 import { textSlicer } from "../utils";
+import Circle from "./Circle";
 interface IProps {
   product: IProduct;
+  setProductToEdit: (product: IProduct) => void;
+  openEditModal: () => void;
 }
 
-const ProductCard = ({ product }: IProps) => {
+const ProductCard = ({ product, setProductToEdit, openEditModal }: IProps) => {
+  const onEdit = () => {
+    setProductToEdit(product);
+  };
   return (
     <div className="border rounded-md p-2">
       <Image
@@ -22,13 +28,9 @@ const ProductCard = ({ product }: IProps) => {
       </p>
 
       <div className="flex items-center gap-1 my-2">
-        <span
-          className={"h-5 w-5 bg-red-500 rounded-full block cursor-pointer"}
-        />
-        <span
-          className={"h-5 w-5 bg-blue-500 rounded-full block cursor-pointer"}
-        />
-        <span className="h-5 w-5 bg-emerald-500 rounded-full block cursor-pointer" />
+        {product.colors.map((color) => (
+          <Circle color={color} key={color} />
+        ))}
       </div>
 
       <div className="flex justify-between items-center">
@@ -46,7 +48,14 @@ const ProductCard = ({ product }: IProps) => {
       </div>
 
       <div className="flex justify-between items-center gap-2 mt-2">
-        <MyButton className="bg-blue-600 hover:bg-blue-700" width="w-full">
+        <MyButton
+          className="bg-blue-600 hover:bg-blue-700"
+          width="w-full"
+          onClick={() => {
+            onEdit();
+            openEditModal();
+          }}
+        >
           Edit
         </MyButton>
         <MyButton className="bg-red-600 hover:bg-red-700">Delete</MyButton>

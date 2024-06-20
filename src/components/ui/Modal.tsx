@@ -39,7 +39,7 @@ const Modal = ({ close, isOpen, modalTitle, children }: IProps) => {
                     as="h3"
                     className="text-slate-800 text-lg font-semibold uppercase"
                   >
-                    {modalTitle}🌀
+                    {modalTitle}
                   </DialogTitle>
                   <div className="mt-4">{children}</div>
                 </DialogPanel>

@@ -1,5 +1,6 @@
+import { v4 as uuid } from "uuid";
 import ProductCard from "./components/ProductCard";
-import { ProductList, colors, formInputList } from "./data";
+import { Category, ProductList, colors, formInputList } from "./data";
 import MyButton from "./components/ui/MyButton";
 import Modal from "./components/ui/Modal";
 import { useState, type ChangeEvent, type FormEvent } from "react";
@@ -9,6 +10,7 @@ import { inputsValidation } from "./validation/inputValidation";
 import ErrorMessage from "./components/ErrorMessage";
 import Circle from "./components/Circle";
 import { XCircleIcon } from "@heroicons/react/16/solid";
+import SelectMenu from "./components/ui/SelectMenu";
 
 const App = () => {
   const defaultProductObj = {
@@ -24,7 +26,9 @@ const App = () => {
   };
   //** ⚙️⚙️ States ⚙️⚙️
   const [isOpen, setIsOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
   const [product, setProduct] = useState<IProduct>(defaultProductObj);
+  const [products, setProducts] = useState<IProduct[]>(ProductList);
   const [errorMsg, setErrorMsg] = useState({
     title: "",
     description: "",
@@ -32,6 +36,12 @@ const App = () => {
     price: "",
   });
   const [selectedColor, setSelectedColor] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState(Category[0]);
+  const [productToEdit, setProductToEdit] =
+    useState<IProduct>(defaultProductObj);
+
+  console.log(productToEdit);
+
   //** 🚀 Handler 🚀 */
   function open() {
     setIsOpen(true);
@@ -39,6 +49,13 @@ const App = () => {
 
   function close() {
     setIsOpen(false);
+  }
+  function openEditModal() {
+    setIsEditOpen(true);
+  }
+
+  function colsEditModal() {
+    setIsEditOpen(false);
   }
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,17 +75,41 @@ const App = () => {
     if (!hasErrorMsg) {
       return;
     }
+
+    setProducts((prev) => [
+      {
+        ...product,
+        id: uuid(),
+        colors: selectedColor,
+        category: selectedCategory,
+      },
+      ...prev,
+    ]);
+    setProduct(defaultProductObj);
+    close();
   };
 
   const onClose = () => {
     setProduct(defaultProductObj);
     setSelectedColor([]);
+    setErrorMsg({
+      description: "",
+      imageURL: "",
+      price: "",
+      title: "",
+    });
     close();
+    colsEditModal();
   };
 
   // ** 🌀🌀 Renders 🌀🌀 //
-  const renderProductList = ProductList.map((product) => (
-    <ProductCard key={product.id} product={product} />
+  const renderProductList = products.map((product) => (
+    <ProductCard
+      openEditModal={openEditModal}
+      setProductToEdit={setProductToEdit}
+      key={product.id}
+      product={product}
+    />
   ));
 
   const renderInputs = formInputList.map((input) => {
@@ -112,10 +153,69 @@ const App = () => {
 
   return (
     <main className="container">
-      <Modal close={close} isOpen={isOpen} modalTitle={"Add A New Product"}>
+      {/* Add A New Product 🌀 */}
+      <Modal close={close} isOpen={isOpen} modalTitle={"Add A New Product 🌀"}>
         <form className="space-y-2" onSubmit={onSubmitHandler}>
           {renderInputs}
+          <SelectMenu
+            selected={selectedCategory}
+            setSelected={setSelectedCategory}
+          />
+          <div className="flex items-center justify-start space-x-1 py-[5px]">
+            {renderColors}
+          </div>
+          <div className="flex items-center gap-2 flex-wrap text-white">
+            {selectedColor.map((ele) => {
+              return (
+                <span
+                  key={ele}
+                  className="py-1 px-1 rounded-md flex items-center gap-1"
+                  style={{ background: ele }}
+                >
+                  {ele}
+                  <XCircleIcon
+                    style={{
+                      width: "20px",
+                      background: ele,
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      setSelectedColor((prev) =>
+                        prev.filter((item) => item !== ele)
+                      );
+                    }}
+                  />
+                </span>
+              );
+            })}
+          </div>
+          <div className="flex space-x-2">
+            <MyButton className="bg-blue-600 hover:bg-blue-700">
+              Submit
+            </MyButton>
+            <MyButton
+              type="button"
+              onClick={onClose}
+              className="bg-gray-400 hover:bg-gray-500"
+            >
+              Cancel
+            </MyButton>
+          </div>
+        </form>
+      </Modal>
 
+      {/* Edit the product ✒️*/}
+      <Modal
+        close={colsEditModal}
+        isOpen={isEditOpen}
+        modalTitle={"Edit the product ✒️"}
+      >
+        <form className="space-y-2" onSubmit={onSubmitHandler}>
+          {renderInputs}
+          <SelectMenu
+            selected={selectedCategory}
+            setSelected={setSelectedCategory}
+          />
           <div className="flex items-center justify-start space-x-1 py-[5px]">
             {renderColors}
           </div>

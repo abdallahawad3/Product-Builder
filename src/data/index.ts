@@ -1,4 +1,4 @@
-import type {  IInputs, IProduct } from "../interfaces";
+import type {  ICategory, IInputs, IProduct } from "../interfaces";
 import {v4 as uuid} from "uuid"
 import {car1, car2, furniture1, furniture2, furniture3, nike, nike2, pc, pcDesktop, tShirt,} from "../assets/images/index"
 
@@ -195,20 +195,34 @@ export const colors: string[] = [
 ] 
 
 
-// export const Category:ICategory[] = [
-//   {
-//     id: uuid(),
-//     name: "Nike",
-//     imageURL:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-//   },
-//   {
-//     id: uuid(),
-//     name: "T-Shirt",
-//     imageURL:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-//   },
-//   {
-//     id: uuid(),
-//     name: "Cars",
-//     imageURL:"https://images.unsplash.com/photo-1623426402165-2ecb891e1520?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-//   },
-// ]
+export const Category:ICategory[] = [
+  
+  {
+    id: uuid(),
+    name: "Cars",
+    imageURL:car1,
+  },
+  
+  {
+    id: uuid(),
+    name: "Nike",
+    imageURL:nike,
+  },
+  {
+    id: uuid(),
+    name: "T-Shirt",
+    imageURL:tShirt,
+  },
+  
+
+  {
+    id: uuid(),
+    name: "Furniture",
+    imageURL:furniture1,
+  },
+  {
+    id: uuid(),
+    name: "Pc-Desktop",
+    imageURL:pcDesktop,
+  },
+]
